@@ -4,8 +4,9 @@ import {Button, Text, View} from "react-native";
 function WelcomeScreen({navigation}) {
     return (
         <View>
-            <Text>Bienvenu sur Cares. Pour commencer, connectez-vous.</Text>
-            <Button title="Connexion" accessibilityLabel="Se connecter" onPress={() => navigation.navigate('Connexion')}/>
+            <Text>Welcome to Cares. To continue, create an account or sign up.</Text>
+            <Button title="Sign up" accessibilityLabel="Sign up" onPress={() => navigation.navigate('SignUp')}/>
+            <Button title="HomeLogin" accessibilityLabel="Login" onPress={() => navigation.navigate('HomeLogin')}/>
         </View>
     )
 }
