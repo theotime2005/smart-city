@@ -7,7 +7,7 @@ const LoginScreen = ({ navigation }) => {
 
     const handleLogin = () => {
         if (email === 'test@example.net' && password === 'blabla') {
-            navigation.navigate('Accueil');
+            navigation.navigate('Home');
         } else {
             Alert.alert('Erreur', 'Email ou mot de passe incorrect');
         }
@@ -15,7 +15,7 @@ const LoginScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Connexion</Text>
+            <Text style={styles.title}>HomeLogin</Text>
 
             <TextInput
                 style={styles.input}
@@ -28,13 +28,13 @@ const LoginScreen = ({ navigation }) => {
 
             <TextInput
                 style={styles.input}
-                placeholder="Mot de passe"
+                placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry={true}
             />
 
-            <Button title="Se connecter" onPress={handleLogin} />
+            <Button title="Log in" onPress={handleLogin} />
         </View>
     );
 };
