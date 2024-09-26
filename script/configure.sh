@@ -19,3 +19,5 @@ npm run build
 
 cd ../
 echo "Configuration terminée"
+echo "Lancer l'api avec la commande 'npm run start:api'"
+echo "Lancer l'application avec la commande 'npm run start:app'"
