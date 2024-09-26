@@ -6,7 +6,7 @@ function WelcomeScreen({navigation}) {
         <View>
             <Text>Welcome to Cares. To continue, create an account or sign up.</Text>
             <Button title="Sign up" accessibilityLabel="Sign up" onPress={() => navigation.navigate('SignUp')}/>
-            <Button title="HomeLogin" accessibilityLabel="Login" onPress={() => navigation.navigate('HomeLogin')}/>
+            <Button title="HomeLogin" accessibilityLabel="Login" onPress={() => navigation.navigate('Login')}/>
         </View>
     )
 }
