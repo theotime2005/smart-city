@@ -1,28 +1,63 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import config from "../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "../components/Loading";
 
 const LoginScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('');
+    const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
 
-    const handleLogin = () => {
-        if (email === 'test@example.net' && password === 'blabla') {
-            navigation.navigate('Home');
-        } else {
-            Alert.alert('Erreur', 'Email ou mot de passe incorrect');
+    const handleLogin = async () => {
+        setIsLoading(true);
+        const data = {
+            identifier: identifier,
+            password: password
+        };
+        try {
+            const request = await fetch(`${config.api_url}/auth/local`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            const responseData = await request.json();
+            if (request.ok) {
+                const userInfo = {
+                    jwt: responseData.jwt,
+                    userId: responseData.user.id,
+                };
+                await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+                navigation.navigate('Home');
+            } else {
+                Alert.alert(`Sign up failed: ${responseData.message || 'Unknown error'}`);
+                setIsLoading(false);
+            }
+        } catch (e) {
+            console.error(e);
+            Alert.alert("Error with API.");
+            setIsLoading(false);
         }
     };
 
+    if (isLoading) {
+        return (
+            <Loading/>
+        )
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>HomeLogin</Text>
-
+            <Text style={styles.title}>Login</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
+                placeholder="Email or username"
+                value={identifier}
+                onChangeText={setIdentifier}
+                keyboardType="default"
                 autoCapitalize="none"
             />
 
@@ -31,9 +66,13 @@ const LoginScreen = ({ navigation }) => {
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
-                secureTextEntry={true}
+                secureTextEntry={!passwordVisible}
             />
-
+            {!passwordVisible ? (
+                <Button title="Show password" onPress={() => setPasswordVisible(true)}/>
+            ) : (
+                <Button title="Hide password" onPress={() => setPasswordVisible(false)}/>
+            )}
             <Button title="Log in" onPress={handleLogin} />
         </View>
     );
