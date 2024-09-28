@@ -1,3 +1,3 @@
 export default {
-    api_url: "http://localhost:1337" // Replace into production
+    api_url: "127.0.0.1:1337/api"
 }
