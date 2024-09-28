@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "wastes",
+  "info": {
+    "singularName": "waste",
+    "pluralName": "wastes",
+    "displayName": "Waste"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "lat": {
+      "type": "string"
+    },
+    "lng": {
+      "type": "string"
+    },
+    "isActive": {
+      "type": "boolean"
+    },
+    "userCreated": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "userClosed": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
