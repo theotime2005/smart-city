@@ -8,7 +8,7 @@ const LoginScreen = ({ navigation }) => {
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async () => {
         setIsLoading(true);
@@ -33,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
                 await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
                 navigation.navigate('Home');
             } else {
-                Alert.alert(`Sign up failed: ${responseData.message || 'Unknown error'}`);
+                Alert.alert(`Login failed: ${responseData.message[0].messages[0].message || 'Unknown error'}`);
                 setIsLoading(false);
             }
         } catch (e) {
@@ -46,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
     if (isLoading) {
         return (
             <Loading/>
-        )
+        );
     }
 
     return (
